@@ -1,11 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
+import "./index.css";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+// Find all widget divs
+const WidgetDivs = document.querySelectorAll(".liftedwp-widget");
+
+// Render our React App into each
+WidgetDivs.forEach((Div) => {
+  ReactDOM.render(
+    <React.StrictMode>
+      <App domElement={Div} />
+    </React.StrictMode>,
+    Div
+  );
+});
