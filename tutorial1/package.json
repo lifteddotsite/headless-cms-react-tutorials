@@ -1,5 +1,16 @@
 {
-  "name": "tutorial1",
+  "name": "liftedwp-widgets",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/liftedwp-widgets.umd.js",
+  "module": "./dist/liftedwp-widgets.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/liftedwp-widgets.es.js",
+      "require": "./dist/liftedwp-widgets.umd.js"
+    }
+  },
   "private": true,
   "version": "0.0.0",
   "scripts": {

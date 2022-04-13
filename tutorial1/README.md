@@ -68,11 +68,39 @@ module.exports = {
 };
 ```
 
-##### 3.3 Replace the content of package.json with the following:
+##### 3.3 Replace the content of vite.config.js with the following
+
+```js
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+
+module.exports = defineConfig({
+  plugins: [react()],
+  build: {
+    lib: {
+      entry: path.resolve(__dirname, "src/main.jsx"),
+      name: "LiftedWP-Widgets",
+      fileName: (format) => `liftedwp-widgets.${format}.js`,
+    },
+  },
+});
+```
+
+##### 3.4 Replace the content of package.json with the following
 
 ```json
 {
-  "name": "tutorial1",
+  "name": "liftedwp-widgets",
+  "files": ["dist"],
+  "main": "./dist/liftedwp-widgets.umd.js",
+  "module": "./dist/liftedwp-widgets.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/liftedwp-widgets.es.js",
+      "require": "./dist/liftedwp-widgets.umd.js"
+    }
+  },
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -99,13 +127,13 @@ module.exports = {
 }
 ```
 
-##### 3.4 Install the newly added dependencies
+##### 3.5 Install the newly added dependencies
 
 ```bash
 npm install
 ```
 
-##### 3.5 Add the Tailwind directives to your CSS
+##### 3.6 Add the Tailwind directives to your CSS
 
 Create (or replace if already existing) a **./src/index.css** file and add the @tailwind directives for each of Tailwind’s layers.
 
@@ -115,7 +143,7 @@ Create (or replace if already existing) a **./src/index.css** file and add the @
 @tailwind utilities;
 ```
 
-##### 3.6 Let's create an html element styled with Tailwind to test everything works
+##### 3.7 Let's create an html element styled with Tailwind to test everything works
 
 - Replace the content of the **./src/App.jsx** file with the following:
 
@@ -514,29 +542,27 @@ Run the following command to create the widget's embeddable files
 npm run build
 ```
 
-The command above will create several files, the ones of interested have the following the format **index.\*.js** and **index.\*.css**
+The command above will create the following files:
 
 ```bash
 ❯ npm run build
 
-> tutorial1@0.0.0 build
+> liftedwp-widgets@0.0.0 build
 > vite build
 
 vite v2.9.1 building for production...
-✓ 498 modules transformed.
-dist/assets/favicon.17e50649.svg   1.49 KiB
-dist/index.html                    0.80 KiB
-dist/assets/index.0f2f0054.css     22.33 KiB / gzip: 4.47 KiB
-dist/assets/index.0221ec81.js      196.43 KiB / gzip: 59.03 KiB
+✓ 496 modules transformed.
+dist/style.css                22.33 KiB / gzip: 4.47 KiB
+dist/liftedwp-widgets.es.js   292.36 KiB / gzip: 69.23 KiB
+dist/liftedwp-widgets.umd.js   195.80 KiB / gzip: 58.70 KiB
 ```
 
 ### 2. Embedding our widget
 
 ##### 2.1 Hosting the widget files on a static file server
 
-- rename **index.0f2f0054.css** to **index.css** (optional)
-- rename **index.0221ec81.js** to **index.js** (optional)
-- copy the two files to a static file server, in this tutorial we'll simply store the files in the **wp-content** folder
+The two files we'll consider are: - **liftedwp-widgets.umd.js** - **style.css**  
+Copy these two files to a static file server, in this tutorial we'll simply store the files in the **wp-content** folder.
 
 ##### 2.2 Embedding the widget (finally)
 
@@ -546,8 +572,11 @@ dist/assets/index.0221ec81.js      196.43 KiB / gzip: 59.03 KiB
 ```html
 <head>
   <!-- Leave the rest of the content unchage, simply add the two lines below -->
-  <script type="module" src="[YOUR-DDOMAN]/wp-content/index.js"></script>
-  <link rel="stylesheet" href="[YOUR-DDOMAN]/wp-content/index.css" />
+  <script
+    type="module"
+    src="[YOUR-DDOMAN]/wp-content/liftedwp-widgets.umd.js"
+  ></script>
+  <link rel="stylesheet" href="[YOUR-DDOMAN]/wp-content/style.css" />
 </head>
 ```
 
