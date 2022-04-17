@@ -91,6 +91,7 @@ module.exports = defineConfig({
 
 ```json
 {
+  // add the following 
   "name": "liftedwp-widgets",
   "files": ["dist"],
   "main": "./dist/liftedwp-widgets.umd.js",
@@ -101,6 +102,9 @@ module.exports = defineConfig({
       "require": "./dist/liftedwp-widgets.umd.js"
     }
   }
+
+ // & leave everything else the same ...
+ 
 }
 ```
 
