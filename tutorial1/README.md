@@ -87,7 +87,7 @@ module.exports = defineConfig({
 });
 ```
 
-##### 3.4 Replace the content of package.json with the following
+##### 3.4 Add the following settings to your package.json
 
 ```json
 {
@@ -100,29 +100,6 @@ module.exports = defineConfig({
       "import": "./dist/liftedwp-widgets.es.js",
       "require": "./dist/liftedwp-widgets.umd.js"
     }
-  },
-  "private": true,
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@headlessui/react": "^1.5.0",
-    "@heroicons/react": "^1.0.6",
-    "react-icons": "^4.3.1",
-    "@tailwindcss/aspect-ratio": "^0.4.0",
-    "@tailwindcss/typography": "^0.5.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^1.0.7",
-    "autoprefixer": "^10.4.4",
-    "postcss": "^8.4.12",
-    "tailwindcss": "^3.0.23",
-    "vite": "^2.9.0"
   }
 }
 ```
@@ -130,7 +107,7 @@ module.exports = defineConfig({
 ##### 3.5 Install the newly added dependencies
 
 ```bash
-npm install
+npm install @headlessui/react @heroicons/react react-icons @tailwindcss/aspect-ratio @tailwindcss/typography
 ```
 
 ##### 3.6 Add the Tailwind directives to your CSS
@@ -203,7 +180,7 @@ replace the whole content with the following
 
 ```jsx
 import React from "react";
-import ReactDOM from "react-dom";
+import {createRoot} from 'react-dom/client'
 import App from "./App";
 import "./index.css";
 
@@ -212,7 +189,8 @@ const WidgetDivs = document.querySelectorAll(".liftedwp-widget");
 
 // Render our React App into each
 WidgetDivs.forEach((Div) => {
-  ReactDOM.render(
+  const reactDiv = createRoot(Div)
+  reactDiv.render(
     <React.StrictMode>
       <App domElement={Div} />
     </React.StrictMode>,

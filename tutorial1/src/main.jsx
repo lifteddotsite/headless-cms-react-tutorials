@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import {createRoot} from 'react-dom/client'
 import App from "./App";
 import "./index.css";
 
@@ -8,7 +8,8 @@ const WidgetDivs = document.querySelectorAll(".liftedwp-widget");
 
 // Render our React App into each
 WidgetDivs.forEach((Div) => {
-  ReactDOM.render(
+  const reactDiv = createRoot(Div)
+  reactDiv.render(
     <React.StrictMode>
       <App domElement={Div} />
     </React.StrictMode>,
